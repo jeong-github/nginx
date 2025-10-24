@@ -23,20 +23,18 @@ spec:
         secretName: nginx-tls-secret
 
 ---
-apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-svc
+  name: nginx-svc-lb
+  namespace: my-nginx
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: nginx
   ports:
     - name: http
       port: 80
       targetPort: 80
-      nodePort: 38000  # Exposes HTTP on node port 38000
     - name: https
       port: 443
       targetPort: 443
-      nodePort: 34430  # Exposes HTTPS on node port 34430
